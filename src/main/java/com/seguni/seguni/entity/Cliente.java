@@ -49,7 +49,7 @@ public class Cliente implements Serializable {
 	@Column(name = "OBSERVACIONES")
 	private String observaciones;
 	
-
+	
 	public int getDniCl() {
 		return dniCl;
 	}

@@ -2,7 +2,9 @@ package com.seguni.seguni.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
+
+import java.util.Set;
 
 import com.seguni.seguni.entity.Cliente;
 import com.seguni.seguni.entity.Compania;
@@ -17,7 +19,7 @@ public class SeguroDTO implements Serializable{
 	private Date fechaVencimiento;
 	private String condicionesParticulares;
 	private String observaciones;
-	private List<Compania> compania;
+	private Set<Compania> compania;
 	private Cliente cliente;
 	
 	
@@ -25,7 +27,7 @@ public class SeguroDTO implements Serializable{
 		super();
 	}
 	public SeguroDTO(int numeroPoliza, int ramo, Date fechaInicio, Date fechaVencimiento,
-			String condicionesParticulares, String observaciones, List<Compania> compania, Cliente cliente) {
+			String condicionesParticulares, String observaciones, Cliente cliente, Set<Compania> compania) {
 		super();
 		this.numeroPoliza = numeroPoliza;
 		this.ramo = ramo;
@@ -33,8 +35,16 @@ public class SeguroDTO implements Serializable{
 		this.fechaVencimiento = fechaVencimiento;
 		this.condicionesParticulares = condicionesParticulares;
 		this.observaciones = observaciones;
-		this.compania = compania;
 		this.cliente = cliente;
+		this.compania = compania;
+	}
+	
+	
+	public Set<Compania> getCompania() {
+		return compania;
+	}
+	public void setCompania(Set<Compania> compania) {
+		this.compania = compania;
 	}
 	public int getNumeroPoliza() {
 		return numeroPoliza;
@@ -72,12 +82,7 @@ public class SeguroDTO implements Serializable{
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-	public List<Compania> getCompania() {
-		return compania;
-	}
-	public void setCompania(List<Compania> compania) {
-		this.compania = compania;
-	}
+	
 	public Cliente getCliente() {
 		return cliente;
 	}

@@ -27,7 +27,19 @@ public class CompaniaSeguros implements Serializable{
 		
 	@Column(name = "NOMBRECOMPANIA")
 	private String nombreCompania;
+	
+	
+	public CompaniaSeguros() {
+	
+	}
+	public CompaniaSeguros(int id, int numeroPoliza, String nombreCompania) {
+		super();
+		this.id = id;
+		this.numeroPoliza = numeroPoliza;
+		this.nombreCompania = nombreCompania;
+	}
 
+	
 	public int getId() {
 		return id;
 	}

@@ -1,13 +1,19 @@
 package com.seguni.seguni.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "COMPANIA")
@@ -40,17 +46,24 @@ public class Compania implements Serializable {
 	@Column(name = "NOTAS")
 	private String notas;
 	
-	@ManyToMany(mappedBy = "compania")
-	private List<Seguro> seguros;
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade ={
+					CascadeType.PERSIST,
+					CascadeType.MERGE
+	},
+			mappedBy = "compania")
+	@JsonIgnore
+	private Set<Seguro> seguro = new HashSet<>();
 	
 
-	public List<Seguro> getSeguros() {
-		return seguros;
+	public Set<Seguro> getSeguro() {
+		return seguro;
 	}
 
-	public void setSeguros(List<Seguro> seguros) {
-		this.seguros = seguros;
+	public void setSeguro(Set<Seguro> seguro) {
+		this.seguro = seguro;
 	}
+
 
 	public String getNombreCompania() {
 		return nombreCompania;

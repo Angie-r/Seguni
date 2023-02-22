@@ -1,9 +1,12 @@
 package com.seguni.seguni.dto;
 
 import java.io.Serializable;
-import java.util.List;
+
+import java.util.Set;
 
 import com.seguni.seguni.entity.Seguro;
+
+
 
 public class CompaniaDTO implements Serializable{
 
@@ -17,14 +20,15 @@ public class CompaniaDTO implements Serializable{
 	private int telefonoContratacion;
 	private int telefonoSiniestro;
 	private String notas;
-	private List<Seguro> seguros;
+	private Set<Seguro> seguro;
+	
 	
 	
 	public CompaniaDTO() {
 		super();
 	}
 	public CompaniaDTO(String nombreCompania, String claseVia, String nombreVia, int numeroVia, int codigoPostal,
-			int telefonoContratacion, int telefonoSiniestro, String notas,List<Seguro> seguros) {
+			int telefonoContratacion, int telefonoSiniestro, String notas ){
 		super();
 		this.nombreCompania = nombreCompania;
 		this.claseVia = claseVia;
@@ -34,7 +38,16 @@ public class CompaniaDTO implements Serializable{
 		this.telefonoContratacion = telefonoContratacion;
 		this.telefonoSiniestro = telefonoSiniestro;
 		this.notas = notas;
-		this.seguros = seguros;
+	
+	
+		
+	}
+	
+	public Set<Seguro> getSeguro() {
+		return seguro;
+	}
+	public void setSeguro(Set<Seguro> seguro) {
+		this.seguro = seguro;
 	}
 	public String getNombreCompania() {
 		return nombreCompania;
@@ -84,12 +97,7 @@ public class CompaniaDTO implements Serializable{
 	public void setNotas(String notas) {
 		this.notas = notas;
 	}
-	public List<Seguro> getSeguros() {
-		return seguros;
-	}
-	public void setSeguros(List<Seguro> seguros) {
-		this.seguros = seguros;
-	}
+	
 	
 	
 

@@ -46,6 +46,9 @@ public interface ServicioInt {
 	@PostMapping("/seguros/guardar")
 	public Seguro guardarSeguro (@RequestBody SeguroDTO seguro);
 	
+	@DeleteMapping("/seguros/eliminar/{numeroPoliza}")
+	public void eliminarSeguro (@PathVariable ("numeroPoliza") Long numeroPoliza);
+	
 	@PostMapping("/seguros/guardar2")
 	public Seguro guardarSeguro2 (@RequestBody Seguro seguro);
 	
@@ -55,11 +58,17 @@ public interface ServicioInt {
 	@PostMapping("/compania/guardar")
 	public Compania guardarCompania (@RequestBody CompaniaDTO compania);
 	
+	@DeleteMapping("/compania/eliminar/{nombreCompania}")
+	public void eliminarCompania (@PathVariable ("nombreCompania")String nombreCompania);
+	
 	@GetMapping("/companiaSeguros")
 	public List<CompaniaSegurosDTO> mostrarComSeg();
 	
 	@PostMapping("/companiaSeguros/guardar")
 	public CompaniaSeguros guardarCompSeg (@RequestBody CompaniaSegurosDTO companiaSeguros);
+	
+	@DeleteMapping("/companiaSeguros/eliminar/{id}")
+	public void eliminarCompSeg (@PathVariable ("id") Long id);
 	
 	@GetMapping("/perito")
 	public List<PeritoDTO> mostrarPerito();
@@ -67,11 +76,17 @@ public interface ServicioInt {
 	@PostMapping("/perito/guardar")
 	public Perito guardarPerito (@RequestBody PeritoDTO perito);
 	
+	@DeleteMapping("perito/eliminar/{dniPerito}")
+	public void eliminarPerito (@PathVariable ("dniPerito")Long dniPerito);
+	
 	@GetMapping("/siniestro")
 	public List<SiniestroDTO> mostrarSiniestros();
 	
 	@PostMapping("/siniestro/guardar")
 	public Siniestro guardarSiniestro (@RequestBody SiniestroDTO siniestro);
+	
+	@DeleteMapping("siniestro/eliminar/{idSiniestro}")
+	public void eliminarSiniestro (@PathVariable ("idSiniestro")Long idSiniestro);
 	
 	
 

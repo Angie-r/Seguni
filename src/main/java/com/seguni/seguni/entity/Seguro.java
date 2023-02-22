@@ -1,22 +1,26 @@
 package com.seguni.seguni.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Objects;
+import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -36,11 +40,11 @@ public class Seguro implements Serializable{
 	private int ramo; 
 	
 	@Column(name = "FECHAINICIO")
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	//@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date fechaInicio;
 	
 	@Column(name = "FECHAVENCIMIENTO")
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	//@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date fechaVencimiento;
 	
 	@Column(name = "CONDICIONESPARTICULARES")
@@ -49,33 +53,57 @@ public class Seguro implements Serializable{
 	@Column(name = "OBSERVACIONES")
 	private String observaciones;
 	
-	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "DNICLI")
 	Cliente cliente;
+	
+	@ManyToMany()
 	
 	@JoinTable(
 			name = "COMPANIASEGUROS",
 			joinColumns = @JoinColumn(name = "NUMEROPOLIZA", nullable = false),
-			inverseJoinColumns = @JoinColumn(name ="NOMBRECOMPANIA", nullable = false))
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Compania> compania;
+			inverseJoinColumns = @JoinColumn(name = "NOMBRECOMPANIA", nullable = false))
+	private Set<Compania> compania = new HashSet<>();
 	
 	public void addCompania(Compania compania) {
-		if(this.compania == null) {
-			this.compania = new ArrayList<>();
-		}
 		this.compania.add(compania);
+		compania.getNombreCompania();
+	
 	}
 	
+	public void removeCompania(String nombreCompania) {
+		Compania compani = this.compania.stream().filter(c -> Objects.equals(c.getNombreCompania(), nombreCompania)).findFirst().orElse(null);
+		if (compani != null) {
+			this.compania.remove(compani);
+			((Compania) compania).getNombreCompania();	
+			}
+	}
 	
-	public List<Compania> getCompania() {
+	public Seguro() {
+	}
+	
+
+	public Seguro(int numeroPoliza, int ramo, Date fechaInicio, Date fechaVencimiento, String condicionesParticulares,
+			String observaciones, Cliente cliente, Set<Compania> compania) {
+		super();
+		this.numeroPoliza = numeroPoliza;
+		this.ramo = ramo;
+		this.fechaInicio = fechaInicio;
+		this.fechaVencimiento = fechaVencimiento;
+		this.condicionesParticulares = condicionesParticulares;
+		this.observaciones = observaciones;
+		this.cliente = cliente;
+		this.compania = compania;
+		
+	}
+
+	
+	public Set<Compania> getCompania() {
 		return compania;
 	}
 
 
-	public void setCompania(List<Compania> compania) {
+	public void setCompania(Set<Compania> compania) {
 		this.compania = compania;
 	}
 

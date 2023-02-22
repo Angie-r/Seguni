@@ -93,8 +93,8 @@ public class ServicioImp implements ServicioInt{
 					seguros.getFechaVencimiento(),
 					seguros.getCondicionesParticulares(),
 					seguros.getObservaciones(),
-					seguros.getCompania(),
-					seguros.getCliente()));	
+					seguros.getCliente(),
+					seguros.getCompania()));	
 		}
 		return seguroDTO;
 	}
@@ -120,6 +120,11 @@ public class ServicioImp implements ServicioInt{
 		return seguroRepository.save(seguro);
 	}
 	
+	@Override
+	public void eliminarSeguro(Long numeroPoliza) {
+		seguroRepository.deleteById(numeroPoliza);
+	}
+	
 	@Autowired
 	CompaniaRepository companiaRepository;
 	
@@ -137,8 +142,7 @@ public class ServicioImp implements ServicioInt{
 					compania.getCodigoPostal(),
 					compania.getTelefonoContratacion(),
 					compania.getTelefonoSiniestros(),
-					compania.getNotas(),
-					compania.getSeguros()));
+					compania.getNotas()));
 				
 			}
 		return companiaDTO;
@@ -155,9 +159,18 @@ public class ServicioImp implements ServicioInt{
 		companias.setTelefonoContratacion(compania.getTelefonoContratacion());
 		companias.setTelefonoSiniestros(compania.getTelefonoSiniestro());
 		companias.setNotas(compania.getNotas());
+		companias.setSeguro(compania.getSeguro());
+	
+		
 		
 		
 		return companiaRepository.save(companias);
+	}
+	
+	@Override
+	public void eliminarCompania(String nombreCompania) {
+		companiaRepository.deleteById(nombreCompania);
+		
 	}
 
 	@Autowired
@@ -185,6 +198,12 @@ public class ServicioImp implements ServicioInt{
 		compSeg.setNumeroPoliza(companiaSeguros.getNumeroPoliza());
 		compSeg.setNombreCompania(companiaSeguros.getNombreCompania());
 		return companiaSegurosRepository.save(compSeg);
+	}
+	
+	@Override
+	public void eliminarCompSeg(Long id) {
+		companiaSegurosRepository.deleteById(id);
+		
 	}
 
 	@Autowired
@@ -229,6 +248,12 @@ public class ServicioImp implements ServicioInt{
 		peritos.setCiudad(perito.getCiudad());
 		return peritoRepository.save(peritos);
 	}
+	
+	@Override
+	public void eliminarPerito(Long dniPerito) {
+		peritoRepository.deleteById(dniPerito);
+		
+	}
 
 	@Autowired
 	SiniestroRepository siniestroRepository;
@@ -263,16 +288,11 @@ public class ServicioImp implements ServicioInt{
 		siniestros.setPerito(siniestro.getPerito());
 		return siniestroRepository.save(siniestros);
 	}
-	
 
-	
-	
-	
-
-	
-	
-	
-	
-	
+	@Override
+	public void eliminarSiniestro(Long idSiniestro) {
+		siniestroRepository.deleteById(idSiniestro);
+		
+	}
 
 }
