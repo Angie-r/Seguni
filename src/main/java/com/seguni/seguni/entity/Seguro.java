@@ -2,12 +2,12 @@ package com.seguni.seguni.entity;
 
 import java.io.Serializable;
 
-import java.util.Date;
+import java.sql.Date;
+
 import java.util.HashSet;
 
 import java.util.Objects;
 import java.util.Set;
-
 
 
 
@@ -40,11 +40,9 @@ public class Seguro implements Serializable{
 	private int ramo; 
 	
 	@Column(name = "FECHAINICIO")
-	//@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date fechaInicio;
 	
 	@Column(name = "FECHAVENCIMIENTO")
-	//@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date fechaVencimiento;
 	
 	@Column(name = "CONDICIONESPARTICULARES")

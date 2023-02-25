@@ -38,8 +38,6 @@ public class CompaniaDTO implements Serializable{
 		this.telefonoContratacion = telefonoContratacion;
 		this.telefonoSiniestro = telefonoSiniestro;
 		this.notas = notas;
-	
-	
 		
 	}
 	

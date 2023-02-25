@@ -1,5 +1,7 @@
 package com.seguni.seguni.wsint;
 
+import java.sql.Date;
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seguni.seguni.dto.ClienteDTO;
@@ -34,6 +37,9 @@ public interface ServicioInt {
 	@GetMapping("/cliente")
 	public List<ClienteDTO> mostrarCliente();
 	
+	@GetMapping("/cliente/nombre/{nombre}")
+	public List<ClienteDTO> buscaNombre (@PathVariable("nombre") String nombre);
+	
 	@PostMapping("/cliente/guardar")
 	public Cliente guardaCliente (@RequestBody ClienteDTO cliente);
 	
@@ -42,6 +48,12 @@ public interface ServicioInt {
 	
 	@GetMapping("/seguros")
 	public List<SeguroDTO> mostrarSeguros();
+	
+	@GetMapping("/seguros/consultar/{fechaVencimiento}")
+	public List<Seguro> buscaFecha(@PathVariable("fechaVencimiento")Date fechaVencimiento);
+	
+	@GetMapping("/seguros/poliza/{numeroPoliza}")
+	public List<Seguro> orderPoliza (@PathVariable("numeroPoliza")Long numeroPoliza);
 	
 	@PostMapping("/seguros/guardar")
 	public Seguro guardarSeguro (@RequestBody SeguroDTO seguro);

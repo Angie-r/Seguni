@@ -1,7 +1,9 @@
 package com.seguni.seguni.ws;
 
 import java.util.ArrayList;
+
 import java.util.List;
+import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,6 +57,11 @@ public class ServicioImp implements ServicioInt{
 	}
 	
 	@Override
+	public List<ClienteDTO> buscaNombre(String nombre) {
+		return clienteRepository.findByNombre(nombre);
+	}
+	
+	@Override
 	public Cliente guardaCliente(ClienteDTO cliente) {
 		Cliente cl = new Cliente();
 		cl.setDniCl(cliente.getDniCl());
@@ -98,6 +105,16 @@ public class ServicioImp implements ServicioInt{
 		}
 		return seguroDTO;
 	}
+	
+	@Override
+	public List<Seguro> buscaFecha(Date fechaVencimiento) {
+		return seguroRepository.findByFechaVencimientoAfter(fechaVencimiento);
+	}
+	
+	@Override
+	public List<Seguro> orderPoliza(Long numeroPoliza) {
+		return seguroRepository.findByNumeroPolizaOrderByRamoAsc(numeroPoliza);
+	}
 
 	@Override
 	public Seguro guardarSeguro(SeguroDTO seguro) {
@@ -114,6 +131,8 @@ public class ServicioImp implements ServicioInt{
 		
 		return seguroRepository.save(seguros);
 	}
+	
+
 
 	@Override
 	public Seguro guardarSeguro2(Seguro seguro) {
@@ -294,5 +313,12 @@ public class ServicioImp implements ServicioInt{
 		siniestroRepository.deleteById(idSiniestro);
 		
 	}
+
+
+
+
+
+
+	
 
 }
